@@ -1,0 +1,3 @@
+rootProject.name = 'YWPrac2'
+include 'client'
+include 'server'

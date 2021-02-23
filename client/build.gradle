@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+}
+apply plugin: 'idea'
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+idea.module.sourceDirs += file("generated/src")
+
+sourceSets {
+    main {
+        java.srcDirs += "generated/src"
+    }
+}
+
+ext {
+    junitVersion = '5.7.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.apache.axis2/axis2
+    implementation group: 'org.apache.axis2', name: 'axis2', version: '1.7.9', ext: 'pom'
+    // https://mvnrepository.com/artifact/org.apache.axis2/axis2-adb
+    implementation group: 'org.apache.axis2', name: 'axis2-adb', version: '1.7.9'
+    // https://mvnrepository.com/artifact/org.apache.axis2/axis2-transport-local
+    implementation group: 'org.apache.axis2', name: 'axis2-transport-local', version: '1.7.9'
+    // https://mvnrepository.com/artifact/org.apache.axis2/axis2-transport-http
+    implementation group: 'org.apache.axis2', name: 'axis2-transport-http', version: '1.7.9'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+task generateClient() {
+    def stdout = new ByteArrayOutputStream()
+    mkdir("generated")
+    exec {
+        workingDir = "generated"
+        commandLine 'cmd', '/c', 'wsdl2java -s -d adb -uri ../../ApproverService.wsdl'
+        standardOutput = stdout
+    }
+    println "Output:"
+    println stdout
+}
+
+test {
+    useJUnitPlatform()
+}
