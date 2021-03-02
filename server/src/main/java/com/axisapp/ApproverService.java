@@ -1,9 +1,9 @@
 package com.axisapp;
 
-import approver.ApproveOperation;
-import approver.ApproveOperationResponse;
 import approver.ApproverServiceSkeleton;
+import approver.PropElem;
 import approver.PropType;
+import approver.RateElem;
 
 import javax.jws.WebService;
 import java.math.BigDecimal;
@@ -11,16 +11,14 @@ import java.math.BigDecimal;
 @WebService
 public class ApproverService extends ApproverServiceSkeleton {
     @Override
-    public ApproveOperationResponse approveOperation(ApproveOperation approveOperation) {
-        ApproveOperationResponse response = new ApproveOperationResponse();
-
-        PropType data = approveOperation.getData();
+    public RateElem approveOperation(PropElem propElem) {
+        RateElem rateElem = new RateElem();
+        PropType data = propElem.getPropElem();
         if (data.getName().startsWith("A")) {
-            response.setRate(BigDecimal.valueOf(1));
+            rateElem.setRateElem(BigDecimal.valueOf(1));
         } else {
-            response.setRate(BigDecimal.valueOf(5));
+            rateElem.setRateElem(BigDecimal.valueOf(5));
         }
-
-        return response;
+        return rateElem;
     }
 }

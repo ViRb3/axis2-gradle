@@ -12,14 +12,16 @@
           <element name="amount" type="xsd:decimal"/>
         </sequence>
       </complexType>
+      <element name="propElem" type="app:propType"/>
+      <element name="rateElem" type="xsd:decimal"/>
     </schema>
   </types>
   <message name="rateMessage">
-    <part name="rate" type="xsd:decimal">
+    <part name="rate" element="app:rateElem">
     </part>
   </message>
   <message name="proposalMessage">
-    <part name="data" type="app:propType">
+    <part name="data" element="app:propElem">
     </part>
   </message>
   <portType name="loanPort">
@@ -31,7 +33,7 @@
     </operation>
   </portType>
   <binding name="loanBinding" type="app:loanPort">
-    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="approveOperation">
       <soap:operation soapAction=""/>
       <input>
