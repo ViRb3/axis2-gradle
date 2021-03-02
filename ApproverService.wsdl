@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions name="ApproverDefinitions" targetNamespace="urn:Approver" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:app="urn:Approver" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<definitions name="ApproverDefinitions" targetNamespace="urn:Approver" xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:app="urn:Approver" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <schema elementFormDefault="qualified" targetNamespace="urn:Approver"
+            xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="propType">
+        <sequence>
+          <element name="name" type="xsd:string"/>
+          <element name="address" type="xsd:string"/>
+          <element name="amount" type="xsd:decimal"/>
+        </sequence>
+      </complexType>
+    </schema>
+  </types>
   <message name="rateMessage">
     <part name="rate" type="xsd:decimal">
     </part>
   </message>
   <message name="proposalMessage">
-    <part name="name" type="xsd:string">
-    </part>
-    <part name="address" type="xsd:string">
-    </part>
-    <part name="amount" type="xsd:decimal">
+    <part name="data" type="app:propType">
     </part>
   </message>
   <portType name="loanPort">
