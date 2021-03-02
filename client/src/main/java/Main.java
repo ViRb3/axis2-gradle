@@ -1,10 +1,11 @@
 import approver.ApproverServiceStub;
+import approver.ErrorMessage;
 
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 public class Main {
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) throws RemoteException, ErrorMessage {
         ApproverServiceStub stub = new ApproverServiceStub();
         ApproverServiceStub.PropElem dataElem = new ApproverServiceStub.PropElem();
         ApproverServiceStub.PropType data = new ApproverServiceStub.PropType();

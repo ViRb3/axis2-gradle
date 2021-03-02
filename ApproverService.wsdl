@@ -14,6 +14,7 @@
       </complexType>
       <element name="propElem" type="app:propType"/>
       <element name="rateElem" type="xsd:decimal"/>
+      <element name="errorElem" type="xsd:string"/>
     </schema>
   </types>
   <message name="rateMessage">
@@ -24,12 +25,16 @@
     <part name="data" element="app:propElem">
     </part>
   </message>
+  <message name="errorMessage">
+    <part name="errorPart" element="app:errorElem"/>
+  </message>
   <portType name="loanPort">
     <operation name="approveOperation">
       <input message="app:proposalMessage">
     </input>
       <output message="app:rateMessage">
     </output>
+      <fault name="refusal" message="app:errorMessage"/>
     </operation>
   </portType>
   <binding name="loanBinding" type="app:loanPort">
@@ -42,6 +47,9 @@
       <output>
         <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:Approver"/>
       </output>
+      <fault name="refusal">
+        <soap:fault use="literal" name="refusal"/>
+      </fault>
     </operation>
   </binding>
   <service name="ApproverService">
