@@ -35,16 +35,19 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
-task generateServer() {
-    def stdout = new ByteArrayOutputStream()
-    mkdir("generated")
-    exec {
-        workingDir = "generated"
-        commandLine 'cmd', '/c', 'wsdl2java -s -ss -sd -uri ../../ApproverService.wsdl'
-        standardOutput = stdout
+task generate() {
+    doLast {
+        def stdout = new ByteArrayOutputStream()
+        delete("generated")
+        mkdir("generated")
+        exec {
+            workingDir = "generated"
+            commandLine 'cmd', '/c', 'wsdl2java -s -ss -sd -uri ../../ApproverService.wsdl'
+            standardOutput = stdout
+        }
+        println "Output:"
+        println stdout
     }
-    println "Output:"
-    println stdout
 }
 
 jar {

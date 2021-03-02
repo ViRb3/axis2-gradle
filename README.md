@@ -16,7 +16,7 @@ If you have your IDE open, you may have to restart it for Gradle to pick up the 
 
 ### Generation
 
-Inside this project's root directory, run `gradlew`. This will invoke the code generation for both the client and server using [ApproverService.wsdl](ApproverService.wsdl).
+Inside this project's root directory, run `gradlew generate`. This will invoke the code generation for both the client and server using [ApproverService.wsdl](ApproverService.wsdl).
 Then, edit [server/generated/resources/services.xml](server/generated/resources/services.xml) and set `ServiceClass` to the full name of the implemented server class:
 
 ```xml
@@ -26,6 +26,9 @@ Then, edit [server/generated/resources/services.xml](server/generated/resources/
     ...
 </serviceGroup>
 ```
+
+Note that every time you make a change in the WSDL file, you will have to re-generate the code via `gradlew generate`.
+This will revert all manual changes, such as the server class above, so make sure to apply it again.
 
 ## Building
 
